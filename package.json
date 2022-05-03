@@ -62,7 +62,25 @@
       },
       {
         "command": "randomSample.sampleFromFileSingle",
-        "title": "Sample single item from File",
+        "title": "Sample single Line from File",
+        "category": "Random",
+        "icon": {
+          "dark": "resources/icon_asc_dark.svg",
+          "light": "resources/icon_asc.svg"
+        }
+      },
+      {
+        "command": "randomSample.sampleAgainFromFile",
+        "title": "Sample again from previous File",
+        "category": "Random",
+        "icon": {
+          "dark": "resources/icon_asc_dark.svg",
+          "light": "resources/icon_asc.svg"
+        }
+      },
+      {
+        "command": "randomSample.sampleAgainFromFileSingle",
+        "title": "Sample single Line again from previous File",
         "category": "Random",
         "icon": {
           "dark": "resources/icon_asc_dark.svg",
@@ -148,6 +166,6 @@
     ]
   },
   "dependencies": {
-    "random-item": "^4.0.1"
+    "node-fetch": "^3.2.4"
   }
 }

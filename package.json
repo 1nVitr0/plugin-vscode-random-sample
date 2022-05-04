@@ -30,89 +30,159 @@
     "onCommand:randomSample.sampleFromFile",
     "onCommand:randomSample.sampleFromFileSingle",
     "onCommand:randomSample.sampleAgainFromFile",
-    "onCommand:randomSample.sampleAgainFromFileSingle"
+    "onCommand:randomSample.sampleAgainFromFileSingle",
+    "onCommand:randomSample.sampleFromQuickSample"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [{
+    "commands": [
+      {
         "command": "randomSample.selectSample",
-        "title": "Select random Sample",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Select Sample of random Lines",
+        "category": "Random Sample"
       },
       {
         "command": "randomSample.selectSampleSingle",
-        "title": "Select random Line",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Select Single random Line",
+        "category": "Random Sample"
       },
       {
         "command": "randomSample.sampleFromFile",
-        "title": "Sample from File",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Insert random Sample from File",
+        "category": "Random Sample"
       },
       {
         "command": "randomSample.sampleFromFileSingle",
-        "title": "Sample single Line from File",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Insert single random Line from File",
+        "category": "Random Sample"
       },
       {
         "command": "randomSample.sampleAgainFromFile",
-        "title": "Sample again from previous File",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Insert random Sample again from previous File",
+        "category": "Random Sample"
       },
       {
         "command": "randomSample.sampleAgainFromFileSingle",
-        "title": "Sample single Line again from previous File",
-        "category": "Random",
-        "icon": {
-          "dark": "resources/icon_asc_dark.svg",
-          "light": "resources/icon_asc.svg"
-        }
+        "title": "Insert single random Line again from previous File",
+        "category": "Random Sample"
+      },
+      {
+        "command": "randomSample.sampleFromQuickSample",
+        "title": "Insert Quick Sample",
+        "category": "Random Sample"
       }
     ],
-    "configuration": [{
-      "title": "Random Sample",
-      "properties": {
-        "random-sample.defaultSize": {
-          "description": "Default Size of Sample",
-          "type": "number",
-          "default": 10
-        },
-        "random-sample.initialSampleFile": {
-          "description": "Sample file used when sampling `again` without selecting a file (URL or file path)",
-          "type": "string",
-          "pattern": "^(https?|file)://|\\.?/",
-          "default": ""
-        },
-        "random-sample.skipLines": {
-          "description": "Skip lines at the beginning of the file (mapped by file ending)",
-          "type": "object",
-          "default": { "csv": 1 },
-          "additionalProperties": {
-            "type": "number"
+    "configuration": [
+      {
+        "title": "Random Sample",
+        "properties": {
+          "random-sample.defaultSize": {
+            "description": "Default Size of Sample",
+            "type": "number",
+            "default": 10
+          },
+          "random-sample.initialSampleFile": {
+            "description": "Sample file used when sampling `again` without selecting a file (URL or file path)",
+            "type": "string",
+            "pattern": "^(https?|file)://|\\.?/",
+            "default": ""
+          },
+          "random-sample.skipLines": {
+            "description": "Skip lines at the beginning of the file (mapped by file ending)",
+            "type": "object",
+            "default": {
+              "csv": 1
+            },
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "random-sample.allowDuplicatesOnOversizedSample": {
+            "description": "Allow duplicate lines on oversized sample",
+            "type": "boolean",
+            "default": false
+          },
+          "random-sample.quickSamples": {
+            "description": "Quick Samples to insert predefined Samples from a file or URL",
+            "type": "array",
+            "default": [
+              {
+                "title": "Magic 8 Ball",
+                "description": "Ask me a question and I will answer it for you",
+                "size": 1,
+                "entries": [
+                  "It is certain",
+                  "Without a doubt",
+                  "Definitely",
+                  "Most likely",
+                  "Outlook good",
+                  "Yes!",
+                  "Try again",
+                  "Reply hazy",
+                  "Can't predict",
+                  "No!",
+                  "Unlikely",
+                  "Sources say no",
+                  "Very doubtful"
+                ]
+              },
+              {
+                "title": "Country",
+                "description": "Pick a random country",
+                "size": 1,
+                "file": "https://gist.githubusercontent.com/kalinchernev/486393efcca01623b18d/raw/daa24c9fea66afb7d68f8d69f0c4b8eeb9406e83/countries"
+              }
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "description": "Title of the Quick Sample",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "Description of the Quick Sample",
+                  "type": "string"
+                },
+                "file": {
+                  "type": "string",
+                  "pattern": "^(https?|file)://|\\.?/",
+                  "description": "URL or file path"
+                },
+                "entries": {
+                  "type": "array",
+                  "description": "Entries to sample from",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "size": {
+                  "type": "number",
+                  "description": "Size of the sample",
+                  "default": 1
+                }
+              },
+              "oneOf": [
+                {
+                  "required": [
+                    "title",
+                    "file",
+                    "size"
+                  ]
+                },
+                {
+                  "required": [
+                    "title",
+                    "entries",
+                    "size"
+                  ]
+                }
+              ]
+            }
           }
         }
       }
-    }]
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -169,7 +239,8 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog", [
+      "@semantic-release/changelog",
+      [
         "@semantic-release/git",
         {
           "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}",

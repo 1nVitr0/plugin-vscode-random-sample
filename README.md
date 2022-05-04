@@ -7,6 +7,8 @@
 
 Sample data from URLs, your local files or the active editor.
 
+![Demo of the extension](resources/demo.gif)
+
 ### Table of Contents
 
 - [Features](#features)
@@ -14,20 +16,28 @@ Sample data from URLs, your local files or the active editor.
 
 ## Features
 
-This extension offers a quick and easy way to sample random data. It allows inserting a random sample from a URL or a local file, as well as selection random lines in the currently active editor.
+This extension offers a quick and easy way to sample random data. It has 2 basic modes:
+
+- Select a sample of random lines in the currently open editor
+- Insert a sample of random lines from a specified file or URL
+
+Additionally `Quick Samples` can be set up in the settings to quickly insert common sample settings.
+This also allows specifying a list of entries instead of a file or URL.
 
 ## Commands
 
 This extension contributed the following commands:
 
-`Select random Sample`: Selects the specified amount of random lines in the active editor
+`Random Sample: Select Sample of random Lines`: Selects the specified amount of random lines in the active editor
 
-`Select random Line`: Selects a random line in the active editor
+`Random Sample: Select Single random Line`: Selects a random line in the active editor
 
-`Sample from File`: Selects the specified amount of random lines from a file or URL
+`Random Sample: Insert random Sample from File`: Inserts the specified amount of random lines from a file or URL
 
-`Sample single Line from File`: Selects a random line from a file or URL
+`Random Sample: Insert single random Line from File`: Inserts a single random line from a file or URL
 
-`Sample again from previous File`: Selects the specified amount of random lines from the previous file or URL
+`Random Sample: Insert random Sample again from previous File`: Inserts the specified amount of random lines from the previous file or URL
 
-`Sample again single Line from previous File`: Selects a random line from the previous file or URL
+`Random Sample: Insert single random Line again from previous File`: Inserts a single random line from the previous file or URL
+
+`Random Sample: Insert Quick Sample`: Inserts a sample from a Quick Sample specified in the settings

@@ -1,4 +1,4 @@
-import { window, Uri } from "vscode";
+import { window, Uri, workspace } from "vscode";
 
 export default function usePrompts() {
   async function sampleFilePrompt(previousUri?: Uri) {
@@ -19,7 +19,7 @@ export default function usePrompts() {
     });
   }
 
-  async function sizePrompt(defaultValue = 1) {
+  async function sizePrompt(defaultValue: number = workspace.getConfiguration("random-sample").get("defaultSize") ?? 1) {
     return await window.showInputBox({
       prompt: "How many lines do you want to sample?",
       value: defaultValue.toString(),

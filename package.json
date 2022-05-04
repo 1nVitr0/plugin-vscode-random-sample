@@ -91,7 +91,27 @@
     ],
     "configuration": [{
       "title": "Random Sample",
-      "properties": {}
+      "properties": {
+        "random-sample.defaultSize": {
+          "description": "Default Size of Sample",
+          "type": "number",
+          "default": 10
+        },
+        "random-sample.initialSampleFile": {
+          "description": "Sample file used when sampling `again` without selecting a file (URL or file path)",
+          "type": "string",
+          "pattern": "^(https?|file)://|\\.?/",
+          "default": ""
+        },
+        "random-sample.skipLines": {
+          "description": "Skip lines at the beginning of the file (mapped by file ending)",
+          "type": "object",
+          "default": { "csv": 1 },
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
     }]
   },
   "scripts": {

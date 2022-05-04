@@ -2,9 +2,28 @@ import { TextEditor, TextEditorEdit, Uri, window, workspace } from "vscode";
 import useRandomItem from "../composables/useRandomItem";
 import useFileData from "../composables/useFileData";
 import usePrompts from "../composables/usePrompts";
+import { join } from "path";
 
 const { sampleFilePrompt, sizePrompt } = usePrompts();
 let previousUri: Uri | undefined = undefined;
+
+export function updateInitialSampleFile() {
+  if (previousUri) return;
+
+  let initialSampleFile: string | undefined = workspace.getConfiguration("random-sample").get("initialSampleFile");
+
+  if (initialSampleFile) {
+    if (!/^(https?|file):\/\//.test(initialSampleFile)) {
+      if (/^\//.test(initialSampleFile)) initialSampleFile = Uri.file(initialSampleFile).toString();
+      else initialSampleFile = Uri.file(join(workspace.rootPath ?? "", initialSampleFile)).toString();
+    }
+    try {
+      previousUri = Uri.parse(initialSampleFile, true);
+    } catch (error) {
+      // Ignore
+    }
+  }
+}
 
 export async function sampleFromFile(
   editor: TextEditor,
@@ -14,7 +33,9 @@ export async function sampleFromFile(
 ) {
   if (!uri) return window.showErrorMessage("No file selected. Please use select a file first.");
 
-  const { lines } = useFileData(uri);
+  const fileExtension = uri.fsPath.split(".").pop() ?? "";
+  const skipLines = workspace.getConfiguration("random-sample.skipLines").get<number>(fileExtension) ?? 0;
+  const { lines } = useFileData(uri, skipLines);
   const { sample } = useRandomItem(await lines);
 
   const items = sample(size);

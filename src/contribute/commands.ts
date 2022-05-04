@@ -1,4 +1,5 @@
 import { commands } from "vscode";
+import { quickSampleDialog } from "../commands/quickSample";
 import {
   sampleFromFile,
   sampleFromFileFullDialog,
@@ -15,5 +16,6 @@ export default function contributeCommands() {
     commands.registerTextEditorCommand("randomSample.sampleAgainFromFile", sampleFromFileSizeDialog),
     commands.registerTextEditorCommand("randomSample.sampleFromFileSingle", sampleFromFile),
     commands.registerTextEditorCommand("randomSample.sampleAgainFromFileSingle", sampleFromFileSingleDialog),
+    commands.registerTextEditorCommand("randomSample.sampleFromQuickSample", quickSampleDialog),
   ];
 }

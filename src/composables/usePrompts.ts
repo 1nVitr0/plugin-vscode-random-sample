@@ -1,4 +1,5 @@
 import { window, Uri, workspace } from "vscode";
+import { QuickSampleFile, QuickSampleEntries } from "../commands/quickSample";
 
 export default function usePrompts() {
   async function sampleFilePrompt(previousUri?: Uri) {
@@ -19,7 +20,9 @@ export default function usePrompts() {
     });
   }
 
-  async function sizePrompt(defaultValue: number = workspace.getConfiguration("random-sample").get("defaultSize") ?? 1) {
+  async function sizePrompt(
+    defaultValue: number = workspace.getConfiguration("random-sample").get("defaultSize") ?? 1
+  ) {
     return await window.showInputBox({
       prompt: "How many lines do you want to sample?",
       value: defaultValue.toString(),
@@ -33,5 +36,23 @@ export default function usePrompts() {
     });
   }
 
-  return { sampleFilePrompt, sizePrompt };
+  async function quickSamplePrompt() {
+    const quickSamples: (QuickSampleFile | QuickSampleEntries)[] =
+      workspace.getConfiguration("random-sample").get("quickSamples") ?? [];
+
+    const selected = await window.showQuickPick(
+      quickSamples.map((quickSample) => ({
+        label: quickSample.title,
+        description: quickSample.description,
+        detail: `Sample ${quickSample.size} ${quickSample.size == 1 ? "line" : "lines"} from ${
+          "file" in quickSample ? quickSample.file : "list of entries"
+        }`,
+        data: quickSample,
+      }))
+    );
+
+    return selected ? selected.data : null;
+  }
+
+  return { sampleFilePrompt, sizePrompt, quickSamplePrompt };
 }

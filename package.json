@@ -14,15 +14,15 @@
     "vscode": "^1.53.0"
   },
   "categories": [
-    "Formatters",
+    "Data Science",
     "Other"
   ],
   "keywords": [
-    "sort",
-    "format",
-    "block",
-    "order",
-    "block sort"
+    "random",
+    "sample",
+    "pick",
+    "random lines",
+    "sampling"
   ],
   "activationEvents": [
     "onCommand:randomSample.selectSample",

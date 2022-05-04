@@ -27,7 +27,10 @@
   "activationEvents": [
     "onCommand:randomSample.selectSample",
     "onCommand:randomSample.selectSampleSingle",
-    "onCommand:randomSample.sampleFromFile"
+    "onCommand:randomSample.sampleFromFile",
+    "onCommand:randomSample.sampleFromFileSingle",
+    "onCommand:randomSample.sampleAgainFromFile",
+    "onCommand:randomSample.sampleAgainFromFileSingle"
   ],
   "main": "./dist/extension.js",
   "contributes": {

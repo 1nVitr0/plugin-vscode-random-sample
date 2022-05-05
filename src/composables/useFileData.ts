@@ -17,7 +17,7 @@ export function parseUri(uri: string) {
   }
 }
 
-export default function useFileData(uri: Uri, skipLines: number = 0) {
+export default function useFileData(uri: Uri, skipLines: number = 0, skipEmptyLines: boolean = false) {
   let content: Promise<string>;
 
   switch (uri.scheme) {
@@ -36,8 +36,11 @@ export default function useFileData(uri: Uri, skipLines: number = 0) {
 
   const lines = content
     .then((data) => {
-      const textLines = data.split(/\r?\n/).slice(skipLines);
-      return textLines.map((text, line) => ({ text, line, length: text.length }));
+      let textLines = data.split(/\r?\n/).slice(skipLines);
+
+      const result = textLines.map((text, line) => ({ text, line, length: text.length }));
+      if (skipEmptyLines) return result.filter(({ length }) => length > 0);
+      else return result;
     })
     .catch((error) => {
       window.showErrorMessage(`Failed to read file: ${uri.toString()}`);

@@ -10,7 +10,7 @@ export function selectSample(editor: TextEditor, editBuilder: TextEditorEdit | n
   const selections: Selection[] = sample(size).map((line) => {
     const lineStart = editor.document.lineAt(line).range.start;
     const lineEnd = editor.document.lineAt(line).range.end;
-    return new Selection(lineStart, lineEnd);
+    return new Selection(lineEnd, lineStart);
   });
 
   editor.selections = selections;

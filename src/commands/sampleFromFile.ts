@@ -28,7 +28,10 @@ export async function sampleFromFile(
 
   const fileExtension = uri.fsPath.split(".").pop() ?? "";
   const skipLines = workspace.getConfiguration("random-sample.skipLines").get<number>(fileExtension) ?? 0;
-  const { lines } = useFileData(uri, skipLines);
+  const skipEmptyLines = workspace
+    .getConfiguration("random-sample")
+    .get<"file" | "selection" | boolean>("skipEmptyLines");
+  const { lines } = useFileData(uri, skipLines, skipEmptyLines === "file" || skipEmptyLines === true);
   const { sample } = useRandomItem(await lines);
 
   const items = sample(size);

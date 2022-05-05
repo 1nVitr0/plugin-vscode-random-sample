@@ -102,6 +102,22 @@
             "type": "boolean",
             "default": false
           },
+          "random-sample.skipEmptyLines": {
+            "description": "Skip Empty lines (one of 'file', 'selection', true, false)",
+            "default": true,
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "file",
+                  "selection"
+                ]
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
           "random-sample.quickSamples": {
             "description": "Quick Samples to insert predefined Samples from a file or URL",
             "type": "array",

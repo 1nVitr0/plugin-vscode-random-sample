@@ -2,6 +2,7 @@
   "name": "random-sample",
   "displayName": "Random Sample",
   "description": "Sample single or multiple lines from a file",
+  "license": "MIT",
   "author": "1nVitr0",
   "publisher": "1nVitr0",
   "repository": {
